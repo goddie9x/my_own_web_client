@@ -3,12 +3,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Notification from './Notification';
 import ClassMember from "./ClassMember";
+import env from "react-dotenv";
 
 export default function Home() {
     const [homeData, setHomeData] = React.useState();
 
     React.useEffect(()=>{
-        fetch('http://localhost:3001')
+        fetch(`${env.MAIN_API}`)
         .then((responsive)=>responsive.json())
         .then((data)=>{
             setHomeData(data);

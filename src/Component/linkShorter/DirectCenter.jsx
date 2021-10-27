@@ -1,6 +1,7 @@
 import React from "react";
 import Button from '@mui/material/Button';
 import {Link} from "react-router-dom";
+import env from "react-dotenv";
 
 export default function DirectCenter() {
     const [link,setLink] = React.useState();
@@ -10,7 +11,7 @@ export default function DirectCenter() {
     function genderShotLink() {
         let data = {url: link}
 
-        fetch(`${window.env.MAIN_API}/dir/`,{
+        fetch(`${env.MAIN_API}/dir/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

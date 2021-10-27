@@ -1,14 +1,15 @@
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import env from "react-dotenv";
 
 export default function DirectUrl() {
     const [longUrl, setLongUrl] = React.useState();
     const [urlNotExit, setUrlNotExit] = React.useState(false);
-
+ 
     React.useEffect(()=>{
         const path = window.location.pathname.split('/').pop();
-        fetch(`${window.env.MAIN_API}/dir/${path}`)
+        fetch(`${env.MAIN_API}/dir/${path}`)
         .then((res)=>res.json())
         .then(data=>{
             setLongUrl(data.longUrl);

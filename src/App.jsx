@@ -10,6 +10,7 @@ import "./style.scss";
 import { useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import env from "react-dotenv";
 
 function App() {
   const [common, setCommon] = useState({});
@@ -23,7 +24,7 @@ function App() {
   };
   const setUserLogin = () => {};
   function handleCommonData() {
-    fetch(`${window.env.MAIN_API}/common`)
+    fetch(`${env.MAIN_API}/common`)
       .then((res) => {
         if (res.locals && res.locals._user) {
           user = res.locals._user;
