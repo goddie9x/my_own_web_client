@@ -9,6 +9,8 @@ export default function DirectCenter() {
     const [errorMessage, setErrorMessage] = React.useState(false);
 
     function genderShotLink() {
+      if(link){
+
         let data = {url: link}
 
         fetch(`${env.MAIN_API}/dir/`,{
@@ -20,12 +22,21 @@ export default function DirectCenter() {
         })
         .then(res => res.json())
         .then(data=>{
-            let shortUrl = window.location.href + "/"+data.shortUrl;
-            setLinkGendered(shortUrl);
+            if(data.shortUrl){
+              let shortUrl = window.location.href + "/"+data.shortUrl;
+              setLinkGendered(shortUrl);
+            }
+            else{
+              setErrorMessage(true);
+            }
         })
         .catch(err => {
           setErrorMessage(true);
         })
+      }
+      else{
+        setErrorMessage(true)
+      }
     }
     function copyShortUrl() {
     navigator.clipboard.writeText(linkGendered);
@@ -45,21 +56,20 @@ export default function DirectCenter() {
             id="createLink"
             aria-describedby="urlHelp"
             onChange={(e)=>{
+              setErrorMessage(false);
                 setLink(e.target.value);
             }}
           />
-          <div id="urlHelp" className="form-text">
-            Try it
-          </div>
+      
           {linkGendered&&<div className="gendered my-3 shadow-lg p-3 mb-5 bg-white rounded">
           Link sẽ... à nhầm, link rút gọn của bạn đây:
-            <Link to={'/dir/'+linkGendered} className="mx-1">
+            <Link to={'/dir/'+linkGendered.split('/').pop()} className="mx-1">
                {linkGendered} 
             </Link>
               <Button variant="outlined" onClick={copyShortUrl} className="mx-5">Copy</Button>
               </div>}
         </div>
-        {errorMessage&&<div className="errorMessage">Oops! Có lỗi sảy ra, bạn thử lại lần nữa xem</div>} 
+        {errorMessage&&<div className="errorMessage my-3 text-danger">Oops! Vui lòng nhập đúng link</div>} 
         
         <button type="submit" className="btn btn-primary create-link-btn mx-5" style={{width:'250px'}} onClick={genderShotLink }>
           Tạo

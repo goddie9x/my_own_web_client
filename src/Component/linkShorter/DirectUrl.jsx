@@ -6,7 +6,7 @@ import env from "react-dotenv";
 export default function DirectUrl() {
     const [longUrl, setLongUrl] = React.useState();
     const [urlNotExit, setUrlNotExit] = React.useState(false);
- 
+ console.log(env.MAIN_API)
     React.useEffect(()=>{
         const path = window.location.pathname.split('/').pop();
         fetch(`${env.MAIN_API}/dir/${path}`)
