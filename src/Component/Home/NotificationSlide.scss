@@ -1,0 +1,16 @@
+.slick-dots {
+    li {
+        button {
+            &:before {
+                color: rgb(230, 109, 109);
+            }
+        }
+        &.slick-active {
+            button {
+                &:before {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
