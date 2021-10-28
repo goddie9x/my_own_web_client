@@ -1,66 +1,46 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import logo from "../../../medias/avatar_logo.jpg";
+import Toast from "../Toast.jsx";
+import Button from "@mui/material/Button";
 
 export default function LoginModal() {
+  const [toast, setToast] = React.useState(false);
+
+  function login() {}
+
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <TextField
-          error
-          id="outlined-error"
-          label="Error"
-          defaultValue="Hello World"
+    <div className="login-form d-flex flex-column align-items-center">
+      <img src={logo} className="sub-logo" alt="logo" />
+      <h3 className="mb-3">Chào mừng đến với TE11</h3>
+      <TextField
+        className="my-3"
+        required
+        id="outlined-required outlined-basic"
+        label="Account"
+      />
+      <TextField
+        className="my-3"
+        id="outlined-password-input"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+      />
+      <Button
+        variant="contained"
+        onClick={login}
+      >
+        Đăng nhập
+      </Button>
+      {toast && (
+        <Toast
+          message=""
+          type="success"
+          handleClose={() => {
+            setToast(false);
+          }}
         />
-        <TextField
-          error
-          id="outlined-error-helper-text"
-          label="Error"
-          defaultValue="Hello World"
-          helperText="Incorrect entry."
-        />
-      </div>
-      <div>
-        <TextField
-          error
-          id="filled-error"
-          label="Error"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          error
-          id="filled-error-helper-text"
-          label="Error"
-          defaultValue="Hello World"
-          helperText="Incorrect entry."
-          variant="filled"
-        />
-      </div>
-      <div>
-        <TextField
-          error
-          id="standard-error"
-          label="Error"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          error
-          id="standard-error-helper-text"
-          label="Error"
-          defaultValue="Hello World"
-          helperText="Incorrect entry."
-          variant="standard"
-        />
-      </div>
-    </Box>
+      )}
+    </div>
   );
 }

@@ -23,7 +23,6 @@ ReactDOM.render(
           move: {
             direction: "bottom",
             out_mode: "out",
-            speed: 4
           },
           line_linked: {
             enable: false,
