@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import LoginInput from "./LoginInput.jsx";
 import Search from "./Search.jsx";
+import UserButton from "./UserButton.jsx";
 import "./header.scss";
+import DEFAUL_USER_IMAGE from "../../../medias/default_user.png";
 
 export default function Header({ data, user }) {
   if (data) {
@@ -12,7 +14,7 @@ export default function Header({ data, user }) {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <Link to="/" className="navbar-brand">
-              <img src={data.logoUrl} alt="logo" />
+              <img src={data.logoUrl || DEFAUL_USER_IMAGE} alt="logo" />
             </Link>
             <button
               className="navbar-toggler"
@@ -29,9 +31,18 @@ export default function Header({ data, user }) {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <Navbar data={data.navs} />
+              <Navbar data={data.navs} userRole={user.role} />
               <Search />
-              <LoginInput />
+              {user ? (
+                user && (
+                  <UserButton
+                    user={user}
+                    dataUserButton={data.UserButton}
+                  />
+                )
+              ) : (
+                <LoginInput />
+              )}
             </div>
           </div>
         </nav>

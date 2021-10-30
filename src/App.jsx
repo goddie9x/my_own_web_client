@@ -14,21 +14,19 @@ import env from "react-dotenv";
 
 function App() {
   const [common, setCommon] = useState({});
-  let user = {};
+  const [user, setUser] = useState();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleToggle = () => {
     setOpen(!open);
   };
-  const setUserLogin = () => {};
+
   function handleCommonData() {
-    fetch(`${env.MAIN_API}/common`)
+    fetch(`${env.MAIN_API}/common`,{credentials: 'include'})
       .then((res) => {
-        if (res.locals && res.locals._user) {
-          user = res.locals._user;
-        }
         return res.json();
       })
       .then((commonData) => {
@@ -42,6 +40,20 @@ function App() {
         console.log(err);
       });
   }
+
+  function handleGetUser() {
+    if (document.cookie) {
+      fetch(`${env.MAIN_API}/user`, {credentials: 'include'})
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data.currentUser);
+        });
+    }
+  }
+
+  useEffect(() => {
+    handleGetUser();
+  }, []);
 
   useEffect(() => {
     handleToggle();

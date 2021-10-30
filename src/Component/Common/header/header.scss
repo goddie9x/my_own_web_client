@@ -12,3 +12,12 @@
     height: 50px;
     border-radius: 10px;
 }
+
+.user_menu {
+    .dropdown-menu {
+        &[data-bs-popper] {
+            left: auto;
+            right: 0;
+        }
+    }
+}

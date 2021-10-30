@@ -36,7 +36,7 @@ const style = {
   pb: 3
 };
 
-export default function LoginInput() {
+export default function LoginInput({logo}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -54,7 +54,7 @@ export default function LoginInput() {
         BackdropComponent={Backdrop}
       >
         <Box sx={style}>
-          <LoginModal/>
+          <LoginModal handleClose={handleClose} logo={logo}/>
         </Box>
       </StyledModal>
     </div>

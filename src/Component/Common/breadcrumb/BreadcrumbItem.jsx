@@ -13,6 +13,6 @@ export default function BreadcrumbItem(props) {
       </Link>
     );
   }
-  let { breadcrumb, length } = props;
+  let { breadcrumb} = props;
   return <Link to={breadcrumb.currentBreadcrumb}>{breadcrumb.breadcrumbName}</Link>;
 }
