@@ -47,7 +47,9 @@ function App() {
   function handleGetUser() {
     if (document.cookie) {
       fetch(env.MAIN_API+'/user', { credentials: "include" })
-        .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
         .then((data) => {
           const currentUser = data.currentUser;
           setUser(currentUser);
