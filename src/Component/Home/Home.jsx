@@ -5,7 +5,7 @@ import Notification from './Notification';
 import ClassMember from "./ClassMember";
 import env from "react-dotenv";
 
-export default function Home() {
+function Home() {
     const [homeData, setHomeData] = React.useState();
 
     React.useEffect(()=>{
@@ -30,3 +30,5 @@ export default function Home() {
         </>}
     </div>)
 }
+
+export default React.memo(Home);

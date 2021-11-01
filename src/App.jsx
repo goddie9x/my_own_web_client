@@ -13,6 +13,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import env from "react-dotenv";
 import Toast from "./Component/Common/Toast";
+import getCookie from "./Util/Cookies/getCookie";
 
 function App() {
   const [welcomeMessage, setWelcomeMessage] = useState(false);
@@ -28,7 +29,7 @@ function App() {
   };
 
   function handleCommonData() {
-    fetch(env.MAIN_API+'/common', { credentials: "include" })
+    fetch(env.MAIN_API+'/common')
       .then((res) => {
         return res.json();
       })
@@ -45,8 +46,18 @@ function App() {
   }
 
   function handleGetUser() {
-    if (document.cookie) {
-      fetch(env.MAIN_API+'/user', { credentials: "include" })
+   const tokenUID = getCookie('tokenUID');
+
+    if (tokenUID) {
+      fetch(env.MAIN_API+'/user' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          tokenUID
+        })
+      })
       .then((res) => {
         return res.json();
       })
