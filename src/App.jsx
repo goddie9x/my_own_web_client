@@ -28,7 +28,7 @@ function App() {
   };
 
   function handleCommonData() {
-    fetch(`${env.MAIN_API}/common`, { credentials: "include" })
+    fetch(env.MAIN_API+'/common', { credentials: "include" })
       .then((res) => {
         return res.json();
       })
@@ -45,6 +45,7 @@ function App() {
   }
 
   function handleGetUser() {
+    console.log(env.MAIN_API);
     if (document.cookie) {
       fetch(`${env.MAIN_API}/user`, { credentials: "include" })
         .then((res) => res.json())
