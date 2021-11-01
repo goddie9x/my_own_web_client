@@ -45,9 +45,8 @@ function App() {
   }
 
   function handleGetUser() {
-    console.log(env.MAIN_API);
     if (document.cookie) {
-      fetch(`${env.MAIN_API}/user`, { credentials: "include" })
+      fetch(env.MAIN_API+'/user', { credentials: "include" })
         .then((res) => res.json())
         .then((data) => {
           const currentUser = data.currentUser;
