@@ -1,11 +1,12 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./Component/Common/header/Header.jsx";
 import Footer from "./Component/Common/footer/Footer.jsx";
 import Breadcrumb from "./Component/Common/breadcrumb/Breadcrumb.jsx";
+import MoveToTop from "./Component/Common/MoveToTop.jsx";
 import { MainRouter } from "./Router/Index.jsx";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.js";
 import "./style.scss";
 import { useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
@@ -16,11 +17,11 @@ function App() {
   const [common, setCommon] = useState({});
   const [user, setUser] = useState();
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
+  const handleCloseLoandingData = () => {
     setOpen(false);
   };
 
-  const handleToggle = () => {
+  const handleToggleLoandingData = () => {
     setOpen(!open);
   };
 
@@ -32,11 +33,11 @@ function App() {
       .then((commonData) => {
         if (Object.keys(commonData.data).length !== 0) {
           setCommon(commonData.data);
-          handleClose();
+          handleCloseLoandingData();
         }
       })
       .catch((err) => {
-        handleClose();
+        handleCloseLoandingData();
         console.log(err);
       });
   }
@@ -56,9 +57,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    handleToggle();
+    handleToggleLoandingData();
     handleCommonData();
   }, []);
+
   return (
     <div className="App">
       <Router>
@@ -66,7 +68,7 @@ function App() {
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
-          onClick={handleClose}
+          onClick={handleCloseLoandingData}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
@@ -80,6 +82,7 @@ function App() {
             );
           })}
         </Switch>
+        <MoveToTop/>
         <Footer data={common.footer} />
       </Router>
     </div>

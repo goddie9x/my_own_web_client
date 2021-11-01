@@ -1,23 +1,37 @@
-.navbar-collapse {
-    line-height: 40px;
-    justify-content: space-between;
-}
-
-.css-1xobbwe {
-    border-radius: 15px;
-}
-
-.sub-logo {
-    width: 100px;
-    height: 50px;
-    border-radius: 10px;
-}
-
-.user_menu {
-    .dropdown-menu {
-        &[data-bs-popper] {
-            left: auto;
-            right: 0;
+header {
+    transition: .3s;
+    &.position-fixed {
+        top: 0;
+        z-index: 999;
+        animation: slideDow .2s linear;
+    }
+    .navbar-collapse {
+        line-height: 40px;
+        justify-content: space-between;
+    }
+    .css-1xobbwe {
+        border-radius: 15px;
+    }
+    .sub-logo {
+        width: 100px;
+        height: 50px;
+        border-radius: 10px;
+    }
+    .user_menu {
+        .dropdown-menu {
+            &[data-bs-popper] {
+                left: auto;
+                right: 0;
+            }
         }
+    }
+}
+
+@keyframes slideDow {
+    from {
+        top: -30px;
+    }
+    to {
+        top: 0px;
     }
 }
