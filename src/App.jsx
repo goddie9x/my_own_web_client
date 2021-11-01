@@ -12,21 +12,23 @@ import { useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import env from "react-dotenv";
+import Toast from "./Component/Common/Toast";
 
 function App() {
+  const [welcomeMessage, setWelcomeMessage] = useState(false);
   const [common, setCommon] = useState({});
   const [user, setUser] = useState();
-  const [open, setOpen] = useState(false);
+  const [openLoandingData, setOpenLoandingData] = useState(false);
   const handleCloseLoandingData = () => {
-    setOpen(false);
+    setOpenLoandingData(false);
   };
 
   const handleToggleLoandingData = () => {
-    setOpen(!open);
+    setOpenLoandingData(!openLoandingData);
   };
 
   function handleCommonData() {
-    fetch(`${env.MAIN_API}/common`,{credentials: 'include'})
+    fetch(`${env.MAIN_API}/common`, { credentials: "include" })
       .then((res) => {
         return res.json();
       })
@@ -44,10 +46,15 @@ function App() {
 
   function handleGetUser() {
     if (document.cookie) {
-      fetch(`${env.MAIN_API}/user`, {credentials: 'include'})
+      fetch(`${env.MAIN_API}/user`, { credentials: "include" })
         .then((res) => res.json())
         .then((data) => {
-          setUser(data.currentUser);
+          const currentUser = data.currentUser;
+          setUser(currentUser);
+
+          setWelcomeMessage(
+            "Xin chào " + (currentUser.name || currentUser.account)
+          );
         });
     }
   }
@@ -67,7 +74,7 @@ function App() {
         <Header data={common.header} user={user} />
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
+          open={openLoandingData}
           onClick={handleCloseLoandingData}
         >
           <CircularProgress color="inherit" />
@@ -82,7 +89,8 @@ function App() {
             );
           })}
         </Switch>
-        <MoveToTop/>
+        <MoveToTop />
+        {welcomeMessage && <Toast type="success" message={welcomeMessage} title="Welcome!"/>}
         <Footer data={common.footer} />
       </Router>
     </div>

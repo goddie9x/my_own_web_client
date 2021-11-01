@@ -4,18 +4,17 @@ import Toast from "../Toast.jsx";
 import Button from "@mui/material/Button";
 import env from "react-dotenv";
 
-export default function LoginModal({ handleClose, logo }) {
+export default function LoginModal({logo }) {
   const [toast, setToast] = React.useState(false);
   const [user, setUser] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   function handleLoginSuccess(token) {
     document.cookie = "tokenUID=" + token + "; path=/";
-    handleClose();
     window.location.reload();
   }
   function handleLoginFail() {
-    setToast({ type: "error", message: "Đăng nhập thất bại" });
+    setToast({ type: "error", message: "Đăng nhập thất bại", title:"Cảnh báo" });
   }
   function login() {
     const data = {
@@ -39,8 +38,6 @@ export default function LoginModal({ handleClose, logo }) {
       .then((data) => {
         let token = data.token;
         if (token) {
-          setToast({ type: "success", message: "Đăng nhập thành công" });
-
           handleLoginSuccess(token);
         }
       })
@@ -80,6 +77,7 @@ export default function LoginModal({ handleClose, logo }) {
         <Toast
           message={toast.message}
           type={toast.type}
+          title={toast.title}
           handleClose={() => {
             setToast(false);
           }}

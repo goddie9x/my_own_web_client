@@ -37,24 +37,24 @@ const style = {
 };
 
 export default function LoginInput({logo}) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openLoginModal, setOpenLoginModal] = React.useState(false);
+  const handleOpenLoginModal = () => setOpenLoginModal(true);
+  const handleCloseLoginModal = () => setOpenLoginModal(false);
 
   return (
     <div>
-      <Button type="button" variant="outlined" onClick={handleOpen} sx={{mx:3}}>
+      <Button type="button" variant="outlined" onClick={handleOpenLoginModal} sx={{mx:3}}>
         Login
       </Button>
       <StyledModal
         aria-labelledby="unstyled-modal-title"
         aria-describedby="unstyled-modal-description"
-        open={open}
-        onClose={handleClose}
+        open={openLoginModal}
+        onClose={handleCloseLoginModal}
         BackdropComponent={Backdrop}
       >
         <Box sx={style}>
-          <LoginModal handleClose={handleClose} logo={logo}/>
+          <LoginModal logo={logo}/>
         </Box>
       </StyledModal>
     </div>

@@ -23,7 +23,7 @@ export default function Header({ data, user }) {
   });
   return (
     <header className={fixed?"shadow-lg position-fixed w-100":"shadow-lg"}>
-      {data&&user&&<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      {data&&<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             <img src={data.logoUrl || DEFAUL_USER_IMAGE} alt="logo" />
@@ -40,14 +40,14 @@ export default function Header({ data, user }) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <Navbar data={data.navs} userRole={user.role} />
+            <Navbar data={data.navs} userRole={user&&user.role} />
             <Search />
             {user ? (
               user && (
                 <UserButton user={user} dataUserButton={data.UserButton} />
               )
             ) : (
-              <LoginInput />
+              <LoginInput logo={data&&data.logoUrl}/>
             )}
           </div>
         </div>
